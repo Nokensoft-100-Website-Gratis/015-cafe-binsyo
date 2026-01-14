@@ -13,6 +13,9 @@ Kunjungi di sini https://nokensoft-100-website-gratis.github.io/015-cafe-binsyo/
 ### Mockup tampilan tablet
 <img src="./mockup-tablet.png" height="500px">
 
+### Mockup info flyer
+<img src="./Nokensoft - Mockup Binsyo.png" height="500px">
+
 
 ## ☕ Tana Papua Coffee and Roastery - Digital Storefront
 
@@ -22,51 +25,47 @@ Selamat datang di repositori resmi website Tana Papua Coffee and Roastery. Proye
 
 ## ✨ Fitur Utama (Highlight)
 
-* Premium Dark Aesthetics: Desain High-End dengan tema hitam elegan dan aksen emas oranye, menciptakan kesan eksklusif dan profesional bagi brand.
+* Desain Modern & Responsif: Antarmuka yang bersih dan estetis menggunakan Tailwind CSS, dioptimalkan untuk perangkat mobile (sentuhan ramah) maupun desktop.
 
-* Dynamic Product Catalog: Sistem filter kategori berbasis Alpine.js yang memungkinkan pelanggan menjelajahi menu (Populer, Cake, Coffee, Pastry) tanpa reload halaman.
+* Menu Navigasi Pintar: Sistem navigasi yang berubah transparan menjadi solid saat gulir (sticky header) serta fitur scroll-spy untuk menandai posisi halaman aktif.
 
-* Omnichannel Ordering: Integrasi langsung ke dua kanal penjualan utama: GoFood (untuk pengiriman instan) dan WhatsApp (untuk pemesanan personal/custom).
+* Galeri Interaktif: Grid galeri foto dengan fitur lightbox (perbesaran gambar) menggunakan Alpine.js untuk menampilkan suasana cafe secara detail.
 
-* Interactive Visual Gallery: Menampilkan estetika produk melalui galeri yang responsif dengan efek hover interaktif untuk meningkatkan appetite appeal.
+* Integrasi Reservasi & Pemesanan: Tombol aksi cepat (CTA) yang terhubung langsung ke WhatsApp dan layanan pengiriman GoFood.
 
-* Mobile-First Navigation: Dilengkapi dengan bottom navigation bar khusus pengguna mobile, memastikan pengalaman belanja yang nyaman di genggaman.
-
-* Smart Location Integration: Peta lokasi interaktif yang disesuaikan dengan skema warna website (Dark Mode Maps) untuk memudahkan pelanggan menemukan toko di Abepura.
+* Hero Slider: Pemajangan visual produk unggulan melalui slider otomatis yang dinamis untuk menarik perhatian pengunjung sejak pertama kali halaman dimuat.
 
 ## 🏆 Keunggulan & Keunikan
 
-* Cita Rasa Autentik & Lokal: Menjual narasi "Home Made with Love" yang dikombinasikan dengan kekayaan rasa lokal Jayapura, Papua.
+* Authentic Home-made: Menonjolkan konsep kue rumahan (cake) buatan tangan yang segar dan tanpa bahan pengawet.
 
-* Ultra-Responsive Design: Performa website yang sangat ringan berkat penggunaan Tailwind CSS, memastikan akses cepat bahkan dengan koneksi terbatas.
+* Local Food Fusion: Perpaduan unik antara kopi kualitas premium dengan makanan lokal khas Jayapura (seperti Roti Keladi).
 
-* SEO Optimized: Dilengkapi dengan meta tag strategis untuk mendominasi pencarian lokal seperti "Cake Jayapura" atau "Coffee Papua".
+* Nuansa Lokal Jayapura: Mengangkat identitas UMKM asli Abepura, Papua, melalui pemilihan narasi dan visual produk.
 
-* Blur-Gradient Interaction: Penggunaan teknik glassmorphism dan gradasi blur yang memberikan kesan kedalaman (depth) visual yang mewah dan modern.
+* Clean Typography & Palet Warna: Penggunaan warna bumi (earth tones) seperti primary-dark (#3d2b1f) dan primary-light (#a68a64) yang menciptakan kesan hangat dan premium.
 
 ## 🚀 Manfaat Bagi Usaha
 
-* Website ini bukan sekadar brosur digital, melainkan alat konversi bisnis:
+* Meningkatkan Kredibilitas: Memberikan kesan profesional bagi UMKM lokal melalui kehadiran digital yang berkualitas tinggi.
 
-* Meningkatkan Kredibilitas: Memberikan kesan bahwa Tana Papua Coffee and Roastery adalah bisnis yang profesional dan mengikuti perkembangan teknologi.
+* Otomasi Informasi: Calon pelanggan dapat melihat daftar menu, harga, dan lokasi tanpa harus bertanya manual lewat chat.
 
-* Memperpendek Jalur Penjualan: Dengan tombol "Chat WhatsApp" dan "GoFood" yang selalu tersedia, hambatan (friction) antara melihat produk dan membeli menjadi hilang.
+* Peningkatan Konversi: Memudahkan proses pemesanan melalui integrasi WhatsApp yang sekali klik, mengurangi hambatan transaksi.
 
-* Otomatisasi Informasi: Mengurangi beban tanya-jawab manual karena menu, harga, lokasi, dan testimoni sudah tersaji secara transparan dalam satu halaman.
-
-* Konektivitas Media Sosial: Membangun ekosistem pelanggan yang loyal dengan menghubungkan traffic website langsung ke Instagram dan Facebook resmi perusahaan.
+* Optimasi SEO Lokal: Dilengkapi dengan meta deskripsi dan kata kunci yang relevan untuk pencarian kuliner di area Abepura dan Jayapura.
 
 ## 🛠️ Spesifikasi Teknis
 
-* Language: Bahasa Indonesia
+* Framework CSS: Tailwind CSS v3.x - Untuk styling berbasis utility-first yang cepat dan ringan.
 
-* Framework CSS: Tailwind CSS (Modern Utility-first)
+* Logic Javascript: Alpine.js v3.x - Mengelola state interaktif (dropdown, modal galeri, mobile menu) tanpa beban berat library besar.
 
-* Interactivity: Alpine.js (Lightweight JavaScript)
+* Icons: Font Awesome 6.4.0 - Koleksi ikon lengkap untuk elemen UI.
 
-* Icons: Font Awesome 6
+* Typography: Desain menggunakan sistem font sans-serif modern yang terintegrasi dengan Tailwind.
 
-* Architecture: Single Page Application (SPA) style with smooth scrolling.
+* Optimasi Gambar: Mendukung format .webp untuk pemuatan halaman yang lebih cepat dan kualitas visual yang tetap terjaga.
 
 <hr>
 
