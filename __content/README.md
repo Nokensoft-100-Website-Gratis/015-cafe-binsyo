@@ -45,7 +45,7 @@ Informasi demo
 
 ```
 
-Kami juga melampirkan "Demo Tampilan/Template Website Tana Papua Cafe & Roastery"
+Kami juga melampirkan "Demo Tampilan/Template Website"
 
 🌐 Link website demo draft desain website Binsyo https://nokensoft-100-website-gratis.github.io/015-cafe-binsyo/
 
