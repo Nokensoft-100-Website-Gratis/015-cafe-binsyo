@@ -2,7 +2,7 @@
 
 ## Demo Website Tana Papua Coffee & Roaster
 
-Kunjungi di sini https://nokensoft-100-website-gratis.github.io/014-cafe-tana-papua/
+Kunjungi di sini https://nokensoft-100-website-gratis.github.io/015-cafe-binsyo/
 
 ### Mockup tampilan destop
 <img src="./mockup-desktop.png" height="300px">

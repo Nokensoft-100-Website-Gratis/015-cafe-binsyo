@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tana Papua Coffee and Roastery | Home Made Cake & Coffee</title>
+    <title>Binsyo Coffee & Local Food - Home-made Cake Jayapura</title>
+
     <meta name="description"
-        content="Tana Papua Coffee and Roastery menghadirkan cake buatan rumah berkualitas dengan cita rasa lokal Jayapura.">
-    <meta name="keywords" content="Cake Jayapura, Coffee Papua, Roastery Jayapura, Nokensoft, UMKM Papua">
+        content="Binsyo Coffee & Local Food menyediakan berbagai cake buatan rumah berkualitas tinggi di Abepura, Jayapura. Nikmati kopi dan makanan lokal terbaik.">
+    <meta name="keywords" content="Binsyo Coffee, Cake Jayapura, Kuliner Papua, UMKM Jayapura, Kopi Abepura">
+    <meta name="author" content="Nokensoft">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -18,8 +20,9 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#FF9900', // Orange Emas
-                        dark: '#0F0F0F',    // Hitam Elegan
+                        'primary-dark': '#3d2b1f',
+                        'primary-light': '#a68a64',
+                        'accent-gray': '#31343C',
                     }
                 }
             }
@@ -30,463 +33,641 @@
             display: none !important;
         }
 
-        .blur-gradient {
-            background: radial-gradient(circle at 20% 30%, rgba(255, 153, 0, 0.15) 0%, rgba(15, 15, 15, 1) 70%);
+        .blur-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(166, 138, 100, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
         }
 
         .nav-active {
-            color: #FF9900 !important;
-            border-bottom: 2px solid #FF9900;
+            color: #a68a64 !important;
+            font-weight: bold;
+            border-bottom: 2px solid #a68a64;
+        }
+
+        .mobile-nav-active {
+            color: #a68a64 !important;
+        }
+
+        /* Slide Animation */
+        .slide-in {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
 
-<body class="bg-dark text-white overflow-x-hidden" x-data="{ 
-        activeSection: 'beranda', 
-        activeTab: 'Populer',
-        scrolled: false,
-        mobileMenu: false 
-      }" @scroll.window="scrolled = (window.pageYOffset > 50); 
-                      let sections = ['beranda', 'kategori', 'produk', 'galeri', 'testimoni', 'kontak'];
-                      sections.forEach(id => {
-                        let el = document.getElementById(id);
-                        if (el && window.pageYOffset >= el.offsetTop - 100) { activeSection = id; }
+<body x-data="{ activeSection: 'beranda', atTop: true }" @scroll.window="atTop = (window.pageYOffset < 50); 
+                      let sections = ['beranda', 'menu', 'produk', 'galeri', 'testimoni', 'kontak'];
+                      sections.forEach(s => {
+                          let el = document.getElementById(s);
+                          if(el && window.pageYOffset >= el.offsetTop - 100) activeSection = s;
                       })">
 
-    <nav class="fixed top-0 w-full z-50 transition-all duration-500 border-b border-white/5"
-        :class="scrolled ? 'bg-dark/90 backdrop-blur-md py-3' : 'bg-transparent py-6'">
-        <div class="container mx-auto px-4 flex justify-between items-center">
 
-            <a href="./" class="flex items-center space-x-3 group">
+
+
+    <nav class="hidden md:flex fixed top-0 w-full z-50 transition-all duration-300 px-12 py-4 justify-between items-center"
+        :class="atTop ? 'bg-transparent' : 'bg-white shadow-md py-2'">
+
+        <div class="flex items-center gap-3">
+            <a href="./" class="flex items-center gap-3 group">
                 <div
-                    class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-dark group-hover:rotate-12 transition shadow-lg shadow-primary/20">
-                    <i class="fas fa-shop text-xl"></i>
+                    class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-light shadow-sm group-hover:scale-110 transition duration-300">
+                    <img src="images/logo-ig.jpg" onerror="this.src='https://placehold.co/100/4a3728/fff?text=B'"
+                        alt="Logo Binsyo" class="w-full h-full object-cover">
                 </div>
-                <div class="flex flex-col">
-                    <h1 class="font-bold text-lg leading-none tracking-tight">TANA PAPUA</h1>
-                    <span class="text-[10px] text-primary tracking-[0.2em] uppercase font-semibold">Coffee &
-                        Roastery</span>
-                </div>
+                <span class="font-bold text-xl uppercase tracking-widest text-primary-dark">
+                    Binsyo <span class="text-primary-light">Coffee</span>
+                </span>
             </a>
+        </div>
 
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#beranda" class="transition font-medium hover:text-primary py-2"
-                    :class="activeSection === 'beranda' ? 'text-primary border-b-2 border-primary' : 'text-white/70'">Beranda</a>
+        <div class="flex items-center gap-8">
+            <a href="#beranda" :class="activeSection === 'beranda' ? 'nav-active' : ''"
+                class="hover:text-primary-light transition">Beranda</a>
 
-                <div class="relative group" x-data="{ open: false }" @click.away="open = false">
-                    <button @mouseover="open = true" @click="open = !open"
-                        class="flex items-center space-x-1 transition font-medium py-2 focus:outline-none"
-                        :class="activeSection === 'produk' ? 'text-primary border-b-2 border-primary' : 'text-white/70 hover:text-primary'">
-                        <span>Produk</span>
-                        <i class="fas fa-chevron-down text-[10px] transition-transform duration-300"
-                            :class="open ? 'rotate-180' : ''"></i>
-                    </button>
-
-                    <div x-show="open" x-transition:enter="transition ease-out duration-200"
-                        x-transition:enter-start="opacity-0 translate-y-2"
-                        x-transition:enter-end="opacity-100 translate-y-0" x-cloak @mouseleave="open = false"
-                        class="absolute top-full -left-4 w-48 bg-[#1a1a1a] border border-white/10 rounded-2xl mt-2 p-2 shadow-2xl backdrop-blur-xl">
-
-                        <template x-for="cat in ['Populer', 'Cake', 'Coffee', 'Pastry']">
-                            <a href="#produk" @click="activeTab = cat; open = false; activeSection = 'produk'"
-                                class="block px-4 py-2.5 rounded-xl transition text-sm flex items-center justify-between group/item"
-                                :class="activeTab === cat && activeSection === 'produk' ? 'bg-primary text-dark font-bold' : 'hover:bg-white/5 text-white/80'">
-                                <span x-text="cat"></span>
-                                <i
-                                    class="fas fa-arrow-right text-[10px] opacity-0 group-hover/item:opacity-100 transition-opacity"></i>
-                            </a>
-                        </template>
-                    </div>
+            <div class="relative group" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                <button class="hover:text-primary-light flex items-center gap-1 transition focus:outline-none">
+                    Menu Cafe <i class="fas fa-chevron-down text-[10px] ml-1"></i>
+                </button>
+                <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                    x-transition:enter-start="opacity-0 transform scale-95"
+                    x-transition:enter-end="opacity-100 transform scale-100"
+                    class="absolute top-full left-0 bg-white shadow-xl rounded-xl py-3 w-48 border border-gray-100 mt-2">
+                    <a href="#menu"
+                        class="block px-4 py-2 text-sm hover:bg-stone-50 hover:text-primary-light transition"><i
+                            class="fas fa-mug-hot mr-2 opacity-70"></i> Coffee</a>
+                    <a href="#menu"
+                        class="block px-4 py-2 text-sm hover:bg-stone-50 hover:text-primary-light transition"><i
+                            class="fas fa-glass-water mr-2 opacity-70"></i> Non-Coffee</a>
                 </div>
-
-                <a href="#galeri" class="transition font-medium hover:text-primary py-2"
-                    :class="activeSection === 'galeri' ? 'text-primary border-b-2 border-primary' : 'text-white/70'">Galeri</a>
-
-                <a href="#testimoni" class="transition font-medium hover:text-primary py-2"
-                    :class="activeSection === 'testimoni' ? 'text-primary border-b-2 border-primary' : 'text-white/70'">Testimoni</a>
-
-                <a href="#kontak" class="transition font-medium hover:text-primary py-2"
-                    :class="activeSection === 'kontak' ? 'text-primary border-b-2 border-primary' : 'text-white/70'">Kontak</a>
             </div>
 
-            <div class="md:hidden relative" x-data="{ open: false }">
-                <button @click="open = !open"
-                    class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center border border-primary/20 text-primary transition-all active:scale-90">
-                    <i class="fas" :class="open ? 'fa-times' : 'fa-bars-staggered'"></i>
-                </button>
+            <a href="#produk" :class="activeSection === 'produk' ? 'nav-active' : ''"
+                class="hover:text-primary-light transition">Produk</a>
+            <a href="#galeri" :class="activeSection === 'galeri' ? 'nav-active' : ''"
+                class="hover:text-primary-light transition">Galeri</a>
+            <a href="#testimoni" :class="activeSection === 'testimoni' ? 'nav-active' : ''"
+                class="hover:text-primary-light transition">Testimoni</a>
+            <a href="#kontak" :class="activeSection === 'kontak' ? 'nav-active' : ''"
+                class="hover:text-primary-light transition">Kontak</a>
+        </div>
+    </nav>
 
-                <div x-show="open" x-cloak @click.away="open = false"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 scale-95 translate-y-[-10px]"
-                    x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                    class="absolute right-0 mt-3 w-56 bg-dark/95 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl z-[60]">
 
-                    <div class="px-4 py-2 border-b border-white/5 mb-2">
-                        <span class="text-[10px] font-bold text-primary tracking-widest uppercase">Menu Spesial</span>
-                    </div>
 
-                    <template x-for="cat in ['Populer', 'Cake', 'Coffee', 'Pastry']">
-                        <button
-                            @click="activeTab = cat; open = false; document.getElementById('produk').scrollIntoView();"
-                            class="w-full text-left px-4 py-3 rounded-xl transition text-sm flex items-center justify-between hover:bg-primary/10 hover:text-primary group">
-                            <span x-text="cat"></span>
-                            <i
-                                class="fas fa-chevron-right text-[10px] opacity-50 group-hover:translate-x-1 transition-transform"></i>
-                        </button>
-                    </template>
 
-                    <div class="mt-2 p-2">
-                        <a href="https://gofood.link"
-                            class="block w-full py-2 bg-[#ED2739] text-center text-[11px] font-bold rounded-lg uppercase tracking-tight">
-                            Pesan via GoFood
+
+
+    <div class="md:hidden fixed top-0 w-full bg-white/90 backdrop-blur-md z-[60] py-4 border-b border-stone-100">
+        <div class="flex flex-col items-center justify-center gap-1">
+            <a href="./" class="flex items-center gap-2">
+                <i class="fas fa-coffee text-primary-light text-xl"></i>
+                <span class="font-bold text-lg tracking-tighter text-primary-dark">BINSYO <span
+                        class="text-primary-light uppercase">Coffee</span></span>
+            </a>
+            <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Home-made Cake & Local Food</p>
+        </div>
+    </div>
+
+    <header id="beranda" class="relative min-h-screen flex items-center overflow-hidden blur-bg pt-24 md:pt-0"
+        x-data="{ activeSlide: 1 }" x-init="setInterval(() => { activeSlide = activeSlide === 1 ? 2 : 1 }, 5000)">
+
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+            <div class="z-10 text-center md:text-left order-2 md:order-1">
+                <div class="mb-6 flex flex-col items-center md:items-start">
+                    <h1 class="text-4xl md:text-6xl font-black text-primary-dark leading-tight mb-4 slide-in">
+                        Cita Rasa <span class="text-primary-light">Cake</span> <br> Rumahan Otentik
+                    </h1>
+                    <p class="text-gray-600 text-lg mb-8 max-w-lg mx-auto md:mx-0">
+                        Binsyo Coffee & Local Food menghadirkan kehangatan melalui setiap potong kue buatan tangan. Kami
+                        adalah usaha rintisan lokal yang berkomitmen menyajikan kualitas terbaik bagi pecinta kuliner
+                        Jayapura/Papua.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <a href="#menu"
+                            class="bg-primary-dark text-white px-8 py-3 rounded-full flex items-center gap-2 hover:bg-black transition shadow-lg group">
+                            <i class="fas fa-utensils group-hover:rotate-12 transition"></i> Menu Cafe
+                        </a>
+                        <a href="#produk"
+                            class="border-2 border-primary-dark text-primary-dark px-8 py-3 rounded-full flex items-center gap-2 hover:bg-primary-dark hover:text-white transition group">
+                            <i class="fas fa-box-open group-hover:-translate-y-1 transition"></i> Produk
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>
 
-    <header id="beranda" class="relative min-h-screen flex items-center pt-20 blur-gradient">
-        <div class="container mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
-            <div class="space-y-8 order-2 md:order-1">
-                <div
-                    class="inline-block px-4 py-1 bg-primary/10 border border-primary/20 rounded-full text-primary text-sm font-semibold">
-                    🏠 Home Made with Love
+            <div class="relative h-[350px] md:h-[500px] order-1 md:order-2">
+                <div x-show="activeSlide === 1" x-transition:enter="transition ease-out duration-700"
+                    x-transition:enter-start="opacity-0 translate-x-20"
+                    x-transition:enter-end="opacity-100 translate-x-0"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 translate-x-0"
+                    x-transition:leave-end="opacity-0 -translate-x-10" class="absolute inset-0">
+                    <img src="images/cafe.webp"
+                        onerror="this.src='https://placehold.co/600x400/31343C/EEE?text=Binsyo+Coffee'"
+                        class="w-4/5 rounded-3xl shadow-2xl absolute top-0 right-0 z-10 border-4 border-white object-cover h-[250px] md:h-[350px]">
+                    <img src="images/coffees.webp"
+                        onerror="this.src='https://placehold.co/400/EEE/31343C?text=Cake+Binsyo'"
+                        class="w-2/3 rounded-3xl shadow-xl absolute bottom-4 left-0 z-0 border-4 border-white opacity-60 object-cover h-[200px] md:h-[300px]">
                 </div>
-                <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">Kehangatan <br><span
-                        class="text-primary italic">Tanah Papua.</span></h1>
-                <p class="text-gray-400 text-lg max-w-md">Sajian cake lembut buatan rumah yang dipadukan dengan aroma
-                    kopi autentik. Manisnya kebersamaan dimulai dari setiap gigitan.</p>
 
-                <div class="flex flex-wrap gap-4">
-                    <a href="https://gofood.link" target="_blank"
-                        class="px-6 py-4 bg-[#ED2739] text-white font-bold rounded-2xl flex items-center gap-3 hover:scale-105 transition shadow-lg shadow-red-600/20">
-                        <div class="relative flex items-center justify-center">
-                            <i class="fas fa-motorcycle text-xl"></i>
-                            <i
-                                class="fas fa-utensils text-[10px] absolute -top-1 -right-2 bg-[#ED2739] p-0.5 rounded-full border border-white/20"></i>
-                        </div>
-                        <span>Pesan via GoFood</span>
-                    </a>
-                    <a href="https://wa.me/6282175416609?text=Halo%20Tana%20Papua,%20saya%20ingin%20memesan%20cake..."
-                        target="_blank"
-                        class="px-6 py-4 border border-green-500 text-green-500 font-bold rounded-2xl flex items-center gap-3 hover:bg-green-500/10 transition">
-                        <i class="fab fa-whatsapp text-2xl"></i>
-                        <span>Chat WhatsApp</span>
-                    </a>
+                <div x-show="activeSlide === 2" x-transition:enter="transition ease-out duration-700"
+                    x-transition:enter-start="opacity-0 translate-x-20"
+                    x-transition:enter-end="opacity-100 translate-x-0"
+                    x-transition:leave="transition ease-in duration-300"
+                    x-transition:leave-start="opacity-100 translate-x-0"
+                    x-transition:leave-end="opacity-0 -translate-x-10" class="absolute inset-0">
+                    <img src="images/tampak-rak-roti.webp"
+                        onerror="this.src='https://placehold.co/600x400/EEE/31343C?text=Fresh+Cakes'"
+                        class="w-4/5 rounded-3xl shadow-2xl absolute top-0 right-0 z-10 border-4 border-white object-cover h-[250px] md:h-[350px]">
+                    <img src="images/espresso.webp"
+                        onerror="this.src='https://placehold.co/400/31343C/EEE?text=Our+Cafe'"
+                        class="w-2/3 rounded-3xl shadow-xl absolute bottom-4 left-0 z-0 border-4 border-white opacity-60 object-cover h-[200px] md:h-[300px]">
                 </div>
             </div>
-            <div class="relative order-1 md:order-2">
-                <div class="absolute inset-0 bg-primary/20 rounded-full blur-[100px] opacity-20 animate-pulse"></div>
-                <img src="images/01.png" alt="Banner Tana Papua"
-                    class="relative rounded-3xl shadow-2xl border border-white/10 transform rotate-2 hover:rotate-0 transition duration-700">
-            </div>
+
         </div>
     </header>
 
-    <section id="kategori" class="py-24 bg-dark">
-        <div class="container mx-auto px-4">
+
+
+
+
+
+    <section id="menu" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-3 italic">Pilih Kategori</h2>
-                <p class="text-gray-400 max-w-sm mx-auto">Temukan berbagai pilihan menu favorit yang kami siapkan khusus
-                    untuk Anda.</p>
+                <h2 class="text-3xl font-bold text-primary-dark uppercase tracking-tight">Menu Cafe Kami</h2>
+                <p class="text-gray-500 mt-2 max-w-xl mx-auto">
+                    Nikmati perpaduan unik kopi premium dengan cita rasa lokal Jayapura.
+                    Setiap menu diracik dengan standar kualitas tinggi untuk kepuasan Anda.
+                    Temukan pasangan sempurna antara kopi dan snack favoritmu di sini.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-3 mt-10">
+                    <span
+                        class="bg-primary-light text-white px-5 py-1.5 rounded-full cursor-pointer shadow-md hover:bg-primary-dark transition duration-300 flex items-center gap-2 text-sm font-medium">
+                        <i class="fas fa-fire text-xs"></i> Populer
+                    </span>
+                    <span
+                        class="bg-stone-100 text-stone-600 px-5 py-1.5 rounded-full cursor-pointer hover:bg-primary-light hover:text-white transition duration-300 flex items-center gap-2 text-sm font-medium">
+                        <i class="fas fa-coffee text-xs"></i> Coffee
+                    </span>
+                    <span
+                        class="bg-stone-100 text-stone-600 px-5 py-1.5 rounded-full cursor-pointer hover:bg-primary-light hover:text-white transition duration-300 flex items-center gap-2 text-sm font-medium">
+                        <i class="fas fa-leaf text-xs"></i> Non-Coffee
+                    </span>
+                    <span
+                        class="bg-stone-100 text-stone-600 px-5 py-1.5 rounded-full cursor-pointer hover:bg-primary-light hover:text-white transition duration-300 flex items-center gap-2 text-sm font-medium">
+                        <i class="fas fa-utensils text-xs"></i> Food
+                    </span>
+                </div>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <template x-for="item in [
-                    {name: 'Populer', icon: 'fa-fire', color: 'from-orange-500/20'},
-                    {name: 'Cake', icon: 'fa-birthday-cake', color: 'from-blue-500/20'},
-                    {name: 'Coffee', icon: 'fa-mug-hot', color: 'from-amber-500/20'},
-                    {name: 'Pastry', icon: 'fa-bread-slice', color: 'from-pink-500/20'}
-                ]">
-                    <div @click="activeTab = item.name; document.getElementById('produk').scrollIntoView()"
-                        class="cursor-pointer group p-8 rounded-3xl border border-white/5 transition-all duration-500 hover:border-primary/50 relative overflow-hidden bg-white/5"
-                        :class="activeTab === item.name ? 'border-primary shadow-xl shadow-primary/10' : ''">
-                        <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br opacity-10 group-hover:opacity-30 transition"
-                            :class="item.color"></div>
-                        <i class="fas mb-6 text-3xl text-primary" :class="item.icon"></i>
-                        <h3 class="text-xl font-bold" x-text="item.name"></h3>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+
+                <div
+                    class="group bg-white rounded-3xl border border-stone-100 overflow-hidden hover:shadow-2xl transition duration-500">
+                    <div class="overflow-hidden aspect-square">
+                        <img src="images/roti-keladi.webp"
+                            onerror="this.src='https://placehold.co/400/EEE/31343C?text=Roti+Keladi'"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                     </div>
-                </template>
+                    <div class="p-5 text-center">
+                        <h4 class="font-bold text-primary-dark text-base md:text-lg leading-tight">Roti Keladi</h4>
+                        <p class="text-primary-light font-bold mt-1">Rp 15.000</p>
+                    </div>
+                </div>
+
+                <div
+                    class="group bg-white rounded-3xl border border-stone-100 overflow-hidden hover:shadow-2xl transition duration-500">
+                    <div class="overflow-hidden aspect-square">
+                        <img src="images/espresso-roti-keladi.webp"
+                            onerror="this.src='https://placehold.co/400/31343C/EEE?text=Espresso+Combo'"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-bold text-primary-dark text-base md:text-lg leading-tight">Espresso & Roti</h4>
+                        <p class="text-primary-light font-bold mt-1">Rp 45.000</p>
+                    </div>
+                </div>
+
+                <div
+                    class="group bg-white rounded-3xl border border-stone-100 overflow-hidden hover:shadow-2xl transition duration-500">
+                    <div class="overflow-hidden aspect-square">
+                        <img src="images/coffees.webp"
+                            onerror="this.src='https://placehold.co/400/EEE/31343C?text=Binsyo+Coffee'"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-bold text-primary-dark text-base md:text-lg leading-tight">Binsyo Latte</h4>
+                        <p class="text-primary-light font-bold mt-1">Rp 28.000</p>
+                    </div>
+                </div>
+
+                <div
+                    class="group bg-white rounded-3xl border border-stone-100 overflow-hidden hover:shadow-2xl transition duration-500">
+                    <div class="overflow-hidden aspect-square">
+                        <img src="images/espresso.webp"
+                            onerror="this.src='https://placehold.co/400/31343C/EEE?text=Double+Espresso'"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-5 text-center">
+                        <h4 class="font-bold text-primary-dark text-base md:text-lg leading-tight">Pure Espresso</h4>
+                        <p class="text-primary-light font-bold mt-1">Rp 20.000</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    
+
+
+
+
+
+
+
     
 
-    <section id="produk" class="py-24 bg-[#0a0a0a]" x-data="{
-            activeTab: 'Coffee',
-            products: [
-                {
-                    nama: 'Espresso',
-                    kategori: 'Coffee',
-                    gambar: 'images/04.png',
-                    deskripsi: 'Ekstrak kopi murni dengan aroma yang kuat dan body yang tebal.',
-                    harga: 'Rp 25.000',
-                    isPopuler: true
-                },
-                {
-                    nama: 'Banana Cake Coklat',
-                    kategori: 'Cake',
-                    gambar: 'images/05.png',
-                    deskripsi: 'Perpaduan lembut pisang pilihan dengan topping coklat ganache premium.',
-                    harga: 'Rp 35.000',
-                    isPopuler: true
-                },
-                {
-                    nama: 'Nasi Goreng Spesial',
-                    kategori: 'Food',
-                    gambar: 'images/05.png',
-                    deskripsi: 'Nasi goreng bumbu rempah autentik dengan topping telur dan ayam.',
-                    harga: 'Rp 45.000',
-                    isPopuler: false
-                },
-                {
-                    nama: 'Cappuccino',
-                    kategori: 'Coffee',
-                    gambar: 'images/04.png',
-                    deskripsi: 'Keseimbangan sempurna antara espresso, susu panas, dan busa susu lembut.',
-                    harga: 'Rp 32.000',
-                    isPopuler: false
-                },
-                {
-                    nama: 'Red Velvet Cake',
-                    kategori: 'Cake',
-                    gambar: 'images/05.png',
-                    deskripsi: 'Cake merah klasik dengan lapisan cream cheese yang gurih dan manis.',
-                    harga: 'Rp 38.000',
-                    isPopuler: false
-                }
-            ]
-        }">
-    <div class="container mx-auto px-4">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-            <div>
-                <h2 class="text-4xl font-bold mb-3 italic">Menu Spesial</h2>
-                <p class="text-gray-400">Dibuat dengan bahan premium untuk menjamin kualitas rasa yang tak terlupakan.</p>
-            </div>
+
+    <section id="produk" class="py-24 bg-white">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-primary-dark uppercase tracking-tight">Produk Unggulan</h2>
+        <p class="text-gray-500 mt-2 mb-12 max-w-2xl mx-auto">
+            Temukan perpaduan sempurna antara kopi kualitas premium dan kelembutan roti buatan rumah khas Jayapura.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            <div class="flex flex-wrap gap-2">
-                <template x-for="cat in ['Coffee', 'Cake', 'Food']">
-                    <button @click="activeTab = cat"
-                        class="px-6 py-2 rounded-full text-sm font-bold transition-all border uppercase tracking-wider"
-                        :class="activeTab === cat ? 'bg-primary border-primary text-dark' : 'border-white/10 text-white hover:border-primary/50'"
-                        x-text="cat"></button>
-                </template>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <template x-for="product in products" :key="product.nama">
-                <div x-show="activeTab === product.kategori"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 translate-y-10"
-                    x-transition:enter-end="opacity-100 translate-y-0"
-                    class="group bg-dark border border-white/10 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-primary/5 transition-all">
-
-                    <div class="relative h-64 overflow-hidden">
-                        <img :src="product.gambar" :alt="product.nama"
-                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-
-                        <div class="absolute top-4 right-4 bg-dark/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold border border-white/10 tracking-widest uppercase">
-                            <span x-text="product.kategori"></span>
-                        </div>
-                    </div>
-
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2" x-text="product.nama"></h3>
-                        <p class="text-gray-500 text-sm leading-relaxed" x-text="product.deskripsi"></p>
-
-                        <div class="mt-4 pt-4 border-t border-white/5">
-                            <span class="text-primary font-black text-lg" x-text="product.harga"></span>
-                        </div>
+            <div class="group bg-stone-50 rounded-3xl border border-stone-100 overflow-hidden hover:shadow-2xl transition duration-500">
+                <div class="overflow-hidden aspect-[3/4]">
+                    <img src="images/espresso-roti-keladi.webp" 
+                         onerror="this.src='https://placehold.co/450x600/31343C/EEE?text=Signature+Pairing'"
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-primary-dark uppercase">Signature Pairing</h3>
+                    <p class="text-gray-500 text-xs mt-2 mb-6 h-10 line-clamp-2">Kombinasi espresso mantap dengan keunikan rasa roti keladi khas Binsyo.</p>
+                    
+                    <div class="flex gap-2">
+                        <a href="https://wa.me/6282175416609" 
+                           class="flex-1 bg-primary-dark text-white py-2.5 rounded-xl text-xs font-bold hover:bg-black transition flex items-center justify-center gap-1.5 shadow-sm">
+                            <i class="fab fa-whatsapp text-sm"></i> WA
+                        </a>
+                        <a href="#" class="flex-1 border border-red-500 text-red-500 py-2.5 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition flex items-center justify-center gap-1.5">
+                            <i class="fas fa-motorcycle"></i> GoFood
+                        </a>
                     </div>
                 </div>
-            </template>
+            </div>
+
+            <div class="group bg-stone-50 rounded-3xl border border-stone-100 overflow-hidden hover:shadow-2xl transition duration-500">
+                <div class="overflow-hidden aspect-[3/4]">
+                    <img src="images/espresso.webp" 
+                         onerror="this.src='https://placehold.co/450x600/EEE/31343C?text=Pure+Espresso'"
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-primary-dark uppercase">Pure Espresso</h3>
+                    <p class="text-gray-500 text-xs mt-2 mb-6 h-10 line-clamp-2">Ekstraksi kopi pilihan dengan aroma kuat untuk membangkitkan semangat Anda.</p>
+                    <div class="flex gap-2">
+                        <a href="https://wa.me/6282175416609" class="flex-1 bg-primary-dark text-white py-2.5 rounded-xl text-xs font-bold hover:bg-black transition flex items-center justify-center gap-1.5 shadow-sm">
+                            <i class="fab fa-whatsapp"></i> WA
+                        </a>
+                        <a href="#" class="flex-1 border border-red-500 text-red-500 py-2.5 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition flex items-center justify-center gap-1.5">
+                            <i class="fas fa-motorcycle"></i> GoFood
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group bg-stone-50 rounded-3xl border border-stone-100 overflow-hidden hover:shadow-2xl transition duration-500">
+                <div class="overflow-hidden aspect-[3/4]">
+                    <img src="images/roti-keladi.webp" 
+                         onerror="this.src='https://placehold.co/450x600/31343C/EEE?text=Roti+Keladi'"
+                         class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                </div>
+                <div class="p-6">
+                    <h3 class="font-bold text-lg text-primary-dark uppercase">Roti Keladi</h3>
+                    <p class="text-gray-500 text-xs mt-2 mb-6 h-10 line-clamp-2">Roti lembut dengan isian keladi asli, tanpa bahan pengawet dan premium.</p>
+                    <div class="flex gap-2">
+                        <a href="https://wa.me/6282175416609" class="flex-1 bg-primary-dark text-white py-2.5 rounded-xl text-xs font-bold hover:bg-black transition flex items-center justify-center gap-1.5 shadow-sm">
+                            <i class="fab fa-whatsapp"></i> WA
+                        </a>
+                        <a href="#" class="flex-1 border border-red-500 text-red-500 py-2.5 rounded-xl text-xs font-bold hover:bg-red-500 hover:text-white transition flex items-center justify-center gap-1.5">
+                            <i class="fas fa-motorcycle"></i> GoFood
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
 
 
+    
 
 
 
-    <section id="galeri" class="py-24 bg-dark">
-        <div class="container mx-auto px-4 text-center">
-            <div class="mb-12">
-                <h2 class="text-4xl font-bold mb-3 italic">Sudut Galeri</h2>
-                <p class="text-gray-400">Setiap detail adalah bentuk cinta kami dalam berkarya di dapur.</p>
+
+
+
+    <section id="galeri" class="py-24 bg-stone-50 border-t border-stone-100" x-data="{ open: false, imgFull: '' }">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-primary-dark uppercase">Galeri Binsyo</h2>
+            <p class="text-gray-500 mt-2 mb-12 max-w-2xl mx-auto">
+                Setiap sudut dirancang untuk kenyamanan santai Anda bersama keluarga.
+                Abadikan momen berharga Anda di Binsyo Coffee dan tag kami di media sosial!
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div @click="open = true; imgFull = 'images/tampak-cashier-2.webp'"
+                    class="group cursor-pointer relative aspect-[3/4] overflow-hidden rounded-3xl border-4 border-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                    <img src="images/tampak-cashier-2.webp"
+                        onerror="this.src='https://placehold.co/400x600/31343C/EEE?text=Cashier+2'"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition duration-500"></div>
+                </div>
+
+                <div @click="open = true; imgFull = 'images/tampak-cashier.webp'"
+                    class="group cursor-pointer relative aspect-[3/4] overflow-hidden rounded-3xl border-4 border-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl md:mt-8">
+                    <img src="images/tampak-cashier.webp"
+                        onerror="this.src='https://placehold.co/400x600/EEE/31343C?text=Cashier'"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition duration-500"></div>
+                </div>
+
+                <div @click="open = true; imgFull = 'images/tampak-meja-dan-kursi.webp'"
+                    class="group cursor-pointer relative aspect-[3/4] overflow-hidden rounded-3xl border-4 border-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
+                    <img src="images/tampak-meja-dan-kursi.webp"
+                        onerror="this.src='https://placehold.co/400x600/31343C/EEE?text=Interior'"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition duration-500"></div>
+                </div>
+
+                <div @click="open = true; imgFull = 'images/tampak-rak-roti.webp'"
+                    class="group cursor-pointer relative aspect-[3/4] overflow-hidden rounded-3xl border-4 border-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl md:mt-8">
+                    <img src="images/tampak-rak-roti.webp"
+                        onerror="this.src='https://placehold.co/400x600/EEE/31343C?text=Bakery+Rack'"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition duration-500"></div>
+                </div>
             </div>
+        </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                <div class="group relative overflow-hidden rounded-3xl">
-                    <img src="images/01.png"
-                        class="group-hover:scale-110 transition duration-500 aspect-square object-cover" alt="G1">
-                    <div
-                        class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                        <i class="fas fa-search-plus text-white text-2xl"></i>
-                    </div>
-                </div>
-                <div class="group relative overflow-hidden rounded-3xl md:mt-12">
-                    <img src="images/04.png"
-                        class="group-hover:scale-110 transition duration-500 aspect-square object-cover" alt="G2">
-                    <div
-                        class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                        <i class="fas fa-search-plus text-white text-2xl"></i>
-                    </div>
-                </div>
-                <div class="group relative overflow-hidden rounded-3xl">
-                    <img src="images/06.png"
-                        class="group-hover:scale-110 transition duration-500 aspect-square object-cover" alt="G3">
-                    <div
-                        class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                        <i class="fas fa-search-plus text-white text-2xl"></i>
-                    </div>
-                </div>
-                <div class="group relative overflow-hidden rounded-3xl md:mt-12">
-                    <img src="images/07.png"
-                        class="group-hover:scale-110 transition duration-500 aspect-square object-cover" alt="G4">
-                    <div
-                        class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                        <i class="fas fa-search-plus text-white text-2xl"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-                <a href="https://www.instagram.com/qwerty.cake20/" target="_blank"
-                    class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold rounded-full flex items-center gap-2 hover:shadow-lg hover:shadow-pink-500/20 transition">
-                    <i class="fab fa-instagram"></i> Lihat di Instagram
-                </a>
-                <span class="text-gray-500 text-sm italic">Cek update terbaru kami setiap hari!</span>
-            </div>
+        <div x-show="open" x-cloak x-transition.opacity
+            class="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" @click="open = false">
+            <button
+                class="absolute top-6 right-6 text-white text-3xl transition hover:text-primary-light">&times;</button>
+            <img :src="imgFull" class="max-w-full max-h-[90vh] rounded-lg shadow-2xl border-2 border-white/20">
         </div>
     </section>
 
-    <section id="testimoni" class="py-24 bg-[#0a0a0a]">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-3 italic">Ulasan Pelanggan</h2>
-                <p class="text-gray-400">Cerita manis dari mereka yang telah mencoba kelezatan produk kami.</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <template x-for="user in ['Andi Pratama', 'Maria Yoseph', 'Raka Wijaya']">
-                    <div
-                        class="bg-white/5 p-10 rounded-[40px] border border-white/5 relative group hover:border-primary/20 transition">
+
+
+
+
+
+
+    <section id="testimoni" class="py-24 bg-stone-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold text-primary-dark uppercase">Apa Kata Pelanggan</h2>
+            <p class="text-gray-500 mt-2 mb-12 max-w-2xl mx-auto">
+                Kepercayaan pelanggan adalah motivasi terbesar kami untuk terus berkarya.
+                Kami selalu menjaga kualitas bahan di setiap produk yang kami sajikan.
+                Terima kasih telah menjadi bagian dari perjalanan kuliner Binsyo Coffee.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div
+                    class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border-b-4 border-primary-light flex flex-col justify-between">
+                    <div>
+                        <div class="text-yellow-400 mb-4 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 italic text-sm mb-6">"Kue bolunya sangat lembut dan rasa manisnya pas.
+                            Sangat cocok dinikmati dengan kopi hitam mereka di sore hari."</p>
+                    </div>
+                    <div class="flex items-center justify-center gap-3">
                         <div
-                            class="absolute -top-6 left-10 w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-dark shadow-xl">
-                            <i class="fas fa-quote-right"></i>
+                            class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
+                            <i class="fas fa-user-circle text-2xl"></i>
                         </div>
-                        <p class="text-gray-300 italic mb-8 leading-relaxed">"Tidak sangka ada cake selembut ini di
-                            Jayapura. Sangat worth it dan packaging-nya sangat rapi."</p>
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center border border-white/10">
-                                <i class="fas fa-user text-primary"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold" x-text="user"></h4>
-                                <div class="flex text-[10px] text-yellow-500 gap-1">
-                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                        class="fas fa-star"></i><i class="fas fa-star"></i>
-                                </div>
-                            </div>
+                        <div class="text-left">
+                            <p class="font-bold text-sm">Andi Pratama</p>
+                            <p class="text-[10px] text-gray-400">Local Guide</p>
                         </div>
                     </div>
-                </template>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border-b-4 border-primary-light flex flex-col justify-between">
+                    <div>
+                        <div class="text-yellow-400 mb-4 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 italic text-sm mb-6">"Pesan cake untuk acara ulang tahun lewat WhatsApp,
+                            pelayanannya cepat dan hasilnya sangat cantik. Keluarga suka sekali!"</p>
+                    </div>
+                    <div class="flex items-center justify-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
+                            <i class="fas fa-user-circle text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="font-bold text-sm">Siti Rahma</p>
+                            <p class="text-[10px] text-gray-400">Ibu Rumah Tangga</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border-b-4 border-primary-light flex flex-col justify-between">
+                    <div>
+                        <div class="text-yellow-400 mb-4 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="text-gray-600 italic text-sm mb-6">"Varian kopinya unik-unik. Coffee latte-nya punya
+                            aroma yang kuat tapi tetap creamy. Tempat yang asik buat kerja!"</p>
+                    </div>
+                    <div class="flex items-center justify-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
+                            <i class="fas fa-user-circle text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="font-bold text-sm">Budi Santoso</p>
+                            <p class="text-[10px] text-gray-400">Freelancer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-3xl shadow-sm hover:shadow-xl transition duration-300 border-b-4 border-primary-light flex flex-col justify-between">
+                    <div>
+                        <div class="text-yellow-400 mb-4 text-xs">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-600 italic text-sm mb-6">"Local food-nya juara! Jarang ada cafe modern yang
+                            masih mempertahankan cita rasa lokal seotentik Binsyo."</p>
+                    </div>
+                    <div class="flex items-center justify-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center text-stone-400">
+                            <i class="fas fa-user-circle text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="font-bold text-sm">Maria Papua</p>
+                            <p class="text-[10px] text-gray-400">Mahasiswi</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer id="kontak" class="bg-dark pt-24 pb-28 md:pb-12 border-t border-white/5">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-2 gap-16 mb-20">
-                <div class="space-y-8">
-                    <h2 class="text-4xl font-bold italic">Mari Terhubung</h2>
-                    <div class="space-y-6">
-                        <div class="flex gap-4">
-                            <div
-                                class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-primary shrink-0">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <p class="text-gray-400">Jl. Raya Abepura, Vim, Kec. Abepura, Kota Jayapura, Papua 99220</p>
-                        </div>
-                        <div class="flex gap-4">
-                            <div
-                                class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-primary shrink-0">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <p class="text-gray-400">0821-7541-6609</p>
-                        </div>
-                    </div>
 
-                    <div class="flex flex-wrap gap-4">
-                        <a href="https://wa.me/6282175416609" target="_blank"
-                            class="w-14 h-14 border border-white/10 rounded-2xl flex items-center justify-center hover:bg-green-500 hover:text-white transition group"
-                            title="WhatsApp">
-                            <i class="fab fa-whatsapp text-2xl group-hover:scale-110 transition"></i>
-                        </a>
-                        <a href="https://www.instagram.com/qwerty.cake20/" target="_blank"
-                            class="w-14 h-14 border border-white/10 rounded-2xl flex items-center justify-center hover:bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 hover:text-white transition group"
-                            title="Instagram">
-                            <i class="fab fa-instagram text-2xl group-hover:scale-110 transition"></i>
-                        </a>
-                        <a href="https://facebook.com" target="_blank"
-                            class="w-14 h-14 border border-white/10 rounded-2xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition group"
-                            title="Facebook">
-                            <i class="fab fa-facebook-f text-2xl group-hover:scale-110 transition"></i>
-                        </a>
-                        <a href="https://youtube.com" target="_blank"
-                            class="w-14 h-14 border border-white/10 rounded-2xl flex items-center justify-center hover:bg-red-600 hover:text-white transition group"
-                            title="YouTube">
-                            <i class="fab fa-youtube text-2xl group-hover:scale-110 transition"></i>
-                        </a>
-                    </div>
+
+    
+
+
+
+
+
+    <footer id="kontak" class="bg-accent-gray text-white pt-20 pb-32 md:pb-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div class="space-y-6 text-center md:text-left">
+                <div class="flex justify-center md:justify-start items-center gap-3 mb-6">
+                    <i class="fas fa-coffee-togo text-primary-light text-3xl"></i>
+                    <h2 class="text-3xl font-bold tracking-tighter">BINSYO <span class="text-primary-light font-light">COFFEE</span></h2>
                 </div>
 
-                <div class="rounded-3xl overflow-hidden h-[300px] border border-white/10 shadow-2xl relative group">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.6959954096255!2d140.67013297496905!3d-2.604771197373208!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686cf57b86331213%3A0x747c727d4b94ebf6!2sTana%20Papua%20Coffee%20and%20Roastery!5e0!3m2!1sid!2sid!4v1768354820120!5m2!1sid!2sid"" 
-                        width=" 100%" height="100%" style="border:0; filter: grayscale(1) invert(90%) contrast(1.2);"
-                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                    <div class="absolute inset-0 pointer-events-none border-[12px] border-dark/20 rounded-3xl"></div>
+                <div class="space-y-4 text-gray-400">
+                    <p class="leading-relaxed flex items-start justify-center md:justify-start gap-3">
+                        <i class="fas fa-map-marker-alt text-primary-light mt-1"></i>
+                        Jl. Raya Abepura, Vim, Kec. Abepura, Kota Jayapura, Papua 99220
+                    </p>
+                    <p class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-phone-alt text-primary-light"></i>
+                        082175416609
+                    </p>
+                </div>
+
+                <div class="flex justify-center md:justify-start flex-wrap gap-3 pt-4">
+                    <a title="Instagram" href="https://www.instagram.com/binsyo_coffee/"
+                        class="w-11 h-11 rounded-full border border-gray-600 flex items-center justify-center hover:bg-gradient-to-tr hover:from-yellow-500 hover:to-purple-600 hover:border-transparent transition-all"><i
+                            class="fab fa-instagram text-lg"></i></a>
+                    <a title="WhatsApp" href="https://wa.me/6282175416609"
+                        class="w-11 h-11 rounded-full border border-gray-600 flex items-center justify-center hover:bg-green-600 hover:border-transparent transition-all"><i
+                            class="fab fa-whatsapp text-lg"></i></a>
+                    <a title="TikTok" href="#"
+                        class="w-11 h-11 rounded-full border border-gray-600 flex items-center justify-center hover:bg-black hover:border-transparent transition-all"><i
+                            class="fab fa-tiktok text-lg"></i></a>
+                    <a title="GoFood" href="#"
+                        class="w-11 h-11 rounded-full border border-gray-600 flex items-center justify-center hover:bg-red-700 hover:border-transparent transition-all"><i
+                            class="fas fa-motorcycle text-lg"></i></a>
+                </div>
+
+                <div class="md:hidden flex flex-wrap justify-center gap-3 mt-8">
+                    <a href="https://wa.me/6282175416609"
+                        class="bg-green-600 text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Chat WA
+                    </a>
+                    <a href="https://www.instagram.com/binsyo_coffee/"
+                        class="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
                 </div>
             </div>
 
-            <div
-                class="text-center pt-8 border-t border-white/5 text-gray-500 text-sm flex flex-col md:flex-row justify-between gap-4">
-                <p>© 2026 **Tana Papua Coffee and Roastery**. All rights reserved.</p>
-                <p>Powered by <a href="https://www.nokensoft.com" target="_blank"
-                        class="text-primary hover:underline font-bold">Nokensoft</a></p>
+            <div class="rounded-2xl overflow-hidden border-4 border-gray-700 h-[350px] shadow-2xl relative">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.6939286241304!2d140.66925947496915!3d-2.605424197372552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686cf5785e1f1917%3A0x4ce0f038ffa9d59e!2sBinsyo%20Coffee!5e0!3m2!1sid!2sid!4v1768380790279!5m2!1sid!2sid" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
+        </div>
+
+        <div class="text-center mt-20 text-gray-500 text-[12px] border-t border-gray-800 pt-8 px-6">
+            <p class="uppercase tracking-widest mb-2">© 2026 Binsyo Coffee & Local Food. All Rights Reserved.</p>
+            <p>Powered by <a href="https://www.nokensoft.com" target="_blank"
+                    class="text-primary-light hover:text-white transition-colors font-bold">Nokensoft (www.nokensoft.com)</a></p>
         </div>
     </footer>
 
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] md:hidden z-50">
-        <div
-            class="bg-dark/80 backdrop-blur-xl border border-white/10 rounded-2xl flex justify-around p-4 shadow-2xl shadow-primary/10">
-            <a href="#beranda" :class="activeSection === 'beranda' ? 'text-primary scale-110' : 'text-gray-500'"
-                class="transition"><i class="fas fa-home text-xl"></i></a>
-            <a href="#produk" :class="activeSection === 'produk' ? 'text-primary scale-110' : 'text-gray-500'"
-                class="transition"><i class="fas fa-cookie-bite text-xl"></i></a>
-            <a href="#galeri" :class="activeSection === 'galeri' ? 'text-primary scale-110' : 'text-gray-500'"
-                class="transition"><i class="fas fa-images text-xl"></i></a>
-            <a href="#kontak" :class="activeSection === 'kontak' ? 'text-primary scale-110' : 'text-gray-500'"
-                class="transition"><i class="fas fa-envelope text-xl"></i></a>
-        </div>
+
+
+
+
+
+
+
+    <nav
+        class="md:hidden fixed bottom-0 w-full bg-white shadow-[0_-5px_20px_rgba(0,0,0,0.1)] z-50 px-6 py-3 flex justify-between items-center border-t border-gray-100">
+        <a href="#beranda" @click="activeSection = 'beranda'" class="flex flex-col items-center"
+            :class="activeSection === 'beranda' ? 'mobile-nav-active' : 'text-gray-400'">
+            <i class="fas fa-home"></i><span class="text-[10px]">Beranda</span>
+        </a>
+        <a href="#menu" @click="activeSection = 'menu'" class="flex flex-col items-center"
+            :class="activeSection === 'menu' ? 'mobile-nav-active' : 'text-gray-400'">
+            <i class="fas fa-utensils"></i><span class="text-[10px]">Menu</span>
+        </a>
+
+        <a href="./" class="relative -mt-10 group">
+            <div class="bg-white p-1 rounded-full shadow-lg border-4 border-white">
+                <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary-dark">
+                    <img src="images/logo-ig.jpg" onerror="this.src='https://placehold.co/100/4a3728/fff?text=B'"
+                        alt="Binsyo Logo" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </a>
+
+        <a href="#produk" @click="activeSection = 'produk'" class="flex flex-col items-center"
+            :class="activeSection === 'produk' ? 'mobile-nav-active' : 'text-gray-400'">
+            <i class="fas fa-cake-candles"></i><span class="text-[10px]">Produk</span>
+        </a>
+        <a href="#kontak" @click="activeSection = 'kontak'" class="flex flex-col items-center"
+            :class="activeSection === 'kontak' ? 'mobile-nav-active' : 'text-gray-400'">
+            <i class="fas fa-map-marker-alt"></i><span class="text-[10px]">Kontak</span>
+        </a>
+    </nav>
+
+    <div class="hidden md:flex fixed right-6 bottom-6 flex-col gap-3 z-50">
+        <a href="https://www.instagram.com/binsyo_coffee/" target="_blank" title="Instagram"
+            class="bg-gradient-to-tr from-yellow-400 to-purple-600 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 hover:-rotate-12 transition duration-300">
+            <i class="fab fa-instagram text-xl"></i>
+        </a>
+        <a href="https://wa.me/6282175416609" target="_blank" title="WhatsApp"
+            class="bg-green-500 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 hover:-rotate-12 transition duration-300">
+            <i class="fab fa-whatsapp text-xl"></i>
+        </a>
+        <a href="https://www.instagram.com/binsyo_coffee/" target="_blank" title="GoFood"
+            class="bg-red-500 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-xl hover:scale-110 hover:-rotate-12 transition duration-300">
+            <i class="fas fa-motorcycle text-xl"></i>
+        </a>
     </div>
 
-    <div class="fixed right-6 bottom-28 md:bottom-10 flex flex-col gap-4 z-40">
-        <a href="https://www.instagram.com/qwerty.cake20/"
-            class="w-14 h-14 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-xl hover:-translate-y-2 transition">
-            <i class="fab fa-instagram text-2xl"></i>
-        </a>
-        <a href="https://wa.me/6282175416609"
-            class="w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white shadow-xl hover:-translate-y-2 transition">
-            <i class="fab fa-whatsapp text-3xl"></i>
-        </a>
-    </div>
+
+
+
 
 </body>
 

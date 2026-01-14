@@ -1,0 +1,81 @@
+
+Garis Besar:
+Website tipe one page modern dan responsive bisa buka di segala perangkat desktop, tablet, mobile lengkap dengan tag SEO.
+
+==============
+Tentang Organisasi
+- Nama Organisasi: "Binsyo Coffee & Local Food"
+- Keterangan: Sebuah UMKM dengan produk penjualan berbagai cake buatan rumah
+- Alaamat: Jl. Raya Abepura, Vim, Kec. Abepura, Kota Jayapura, Papua 99220
+- Instagram: https://www.instagram.com/binsyo_coffee/
+- gofood: https://www.instagram.com/binsyo_coffee/
+- No Telp/WA: 082175416609
+- google business profile: https://share.google/1C0gYJe27WqVZjueb
+=============
+
+
+Spesifikasi
+- Bahasa: Indonesia
+- HTML, CSS Tailwind, Alpine.js, Font Awesome Icon
+- Image placeholder landscape: https://placehold.co/600x400
+- Image placeholder square: https://placehold.co/400
+- gambar slider: images/tampak-cashier.webp, images/tampak-rak-roti.webp
+- semua gambar: https://placehold.co/600x400/EEE/31343C
+- Warna Utama: coklat coklat muda dan coklat tua dan hitam gray
+
+
+Navigasi
+- Beranda
+- menu cafe
+- Produk
+- Galeri
+- Testimoni
+- Kontak
+
+Struktur konten
+- nav
+- header
+- section sesuai "navigasi"
+- footer
+
+
+gaya desain Navigasi
+- posisi between dengan urutan logo, judul, menu/navigasi
+- pastikan dropdown berfungsi dengan baik Waktu hover dan klik untuk filter kategori
+- gunakan animasi slides waktu pindah section navigasi
+- pastikan style active untuk nav berfungsi saat di tampilan desktop atau mobile ketika menampilkan setiap section dan default di beranda
+
+Mobile friendly
+- utamakan tampilan mobile
+- menu navigasi utama muncul di bawah
+- logo dan nama cafe di tengah
+
+Gaya Desain & interaksi
+- gaya blur gradation
+- Setiap section memiliki judul dan sub judul (3 kalimat singkat)
+- Logo gunakan icon font awesome "coffee cup" yang sesuai dengan produk di samping judul ada link ke "./"
+- setiap box hover shadow transision
+- setip navigasi scroll transition 
+- setiap kategori memiliki icon
+- testimoni terdiri dari icon user, teks testimoni, nama lengkap di Bawah seperti google ulasan
+- di atas menu cafe ada badge filter (populer, coffee, non coffee, food)
+
+
+Header/slider
+- Terdiri dari judul, sub judul terdiri dari 2 kalimat penjelasan umum dan singkat, 2 tombol action sub judul yang satu filled dan satunya outline disertai dengan icon, dan 2 gambar ilustrasi seperti galeri saling timpah
+- di wabah kalimat singkat ada 2 tombol aksi (menu cafe, produk)
+- buat 2 konten slider otomatis dengan gaya galeri masuk dari kanan ke kiri
+
+Footer
+- terdiri dari 2 kolom
+- kolom kiri: alamat, no telp/wa, icon media social
+- kanan: google map peta papua 
+
+Widget
+- tambah tombol bulat instagram & wa  & gofood di ujung kanan Bawah untuk menirim pesan singkat ke nomor pemilik (pindah ke bawa logo dan judul website waktu tampilan mobile)
+
+Informasi author
+- Powered by Nokensoft, www.nokensoft.com tambahkan di link footer dan buatkan komentar html untuk lisensi/copyright di bagian <head>
+
+
+
